@@ -206,6 +206,8 @@ function tipoSimbolo(line, inicio) {
     };
 }
 
+//Funciones para poder generar reportes de errores,token y lexemas.
+
 function generarReporteErrores(errores) {
     reporteErrores.innerHTML = '<tr><th>Símbolo</th><th>Fila</th><th>Columna</th></tr>';
     errores.forEach(error => {
@@ -233,30 +235,61 @@ function generarConteoLexemas(lexemas) {
     }
 }
 
+//Funcion para buscar patrones
 function buscarPatron() {
     let patron = document.getElementById('buscarPatron').value;
     let texto = ingresarTexto.value;
-    let regex = new RegExp(patron, 'g');
-    let matches = texto.match(regex);
-    let cont = matches ? matches.length : 0;
 
+    //En caso de que el buscador de patron esté vacío no realiza ninguna accion
+    if (patron.length === 0) {
+        mostrarResultados.innerHTML = "<p>Ingrese un patrón para buscar.</p>";
+        return;
+    }
+
+    
     let linea = texto.split('\n');
+    let cont = 0;    
     let textoSubrayado = '';
 
-    // Resaltar coincidencias en cada línea
-    linea.forEach(line => {
-        let lineaSubrayada = line.replace(regex, match => `<span style="background-color: gray;">${match}</span>`);
-        textoSubrayado += `<div>${lineaSubrayada}</div>`;
-    });
-
+    for (let i = 0; i < linea.length; i++) {
+        let line = linea[i];
+        let lineaResaltada = '';
+        let j = 0;        
+        // Procesar cada línea caractér por caractér
+        while (j < line.length) {
+            if (j <= line.length - patron.length) {                
+                let encontrado = true;
+                for (let pos = 0; k < patron.length; k++) {
+                    if (line[j + pos] !== patron[pos]) {
+                        encontrado = false;
+                        break;
+                    }
+                }
+                
+                if (encontrado) {                    
+                    lineaResaltada += '<span style="background-color: gray;">' + patron + '</span>';
+                    cont++;
+                    j += patron.length;
+                    continue;
+                }
+            }
+            
+            // Si no hay coincidencia, añadimos el carácter actual
+            lineaResaltada += line[j];
+            j++;
+        }        
+        // Añadimos la línea procesada al resultado, preservando la estructura original
+        textoSubrayado += '<div>' + lineaResaltada + '</div>';
+    }    
     // Mostrar resultados
     let resultHTML = `<p><strong>Patron buscado:</strong> ${patron}</p>`;
     resultHTML += `<p><strong>No. Repeticiones:</strong> ${cont} veces</p>`;
     resultHTML += `<div><strong>Texto resaltado:</strong><br>${textoSubrayado}</div>`;
 
     mostrarResultados.innerHTML = resultHTML;
-
 }
+
+//Funcion para guardar y descargar el texto de entrada
 
 function guardarTexto() {
     let texto = ingresarTexto.value;
