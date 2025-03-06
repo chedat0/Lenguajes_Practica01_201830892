@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador Léxico</title>
+    <!-- vinculo que permite la personalizacion por medio de CSS-->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Encabezado -->
+        <header>
+            <h1>Analizador Léxico - Práctica 1</h1>
+        </header>
+        
+        <main>
+            <!-- Seccion de carga de archivo -->
+            <section class="seccion-de-entrada">
+                <div class="control-de-archivo">
+                    <div class="subir-archivo">
+                        <label for="cargarArchivo" class="label-archivo">Seleccionar archivo</label>
+                        <input type="file" id="cargarArchivo" accept=".txt">
+                    </div>
+                    <!-- Seccion de botones-->
+                    <div class="accion-de-botones">
+                        <button class="btn btn-limpiar" onclick="limpiarTexto()">Limpiar texto</button>
+                        <button class="btn btn-analizar" onclick="analizarTexto()">Analizar texto</button>
+                        <button class="btn btn-guardar" onclick="guardarTexto()">Guardar/Descargar texto</button>
+                    </div>
+                </div>
+                
+                <div class="text-area-container">
+                    <textarea id="ingresarTexto" placeholder="Si no tiene un archivo, ingrese algún texto acá para evaluar."></textarea>
+                </div>
+                
+                <div class="buscar-container">
+                    <input type="text" id="buscarPatron" placeholder="Ingrese una palabra para buscar un patrón">
+                    <button class="btn btn-buscar" onclick="buscarPatron()">Buscar</button>
+                </div>
+                
+                <div id="mostrarResultados" class="mostrar-resultados"></div>
+            </section>
+            <!-- Seccion de reportes-->
+            <section class="seccion-reportes">
+                <div class="area-reporte">
+                    <h2>Reporte de Errores</h2>
+                    <div class="table-container">
+                        <table id="reporteErrores">
+                            <thead>
+                                <tr>
+                                    <th>Error</th>
+                                    <th>Descripción</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="area-reporte">
+                    <h2>Reporte de Tokens</h2>
+                    <div class="table-container">
+                        <table id="reporteTokens">
+                            <thead>
+                                <tr>
+                                    <th>Token</th>
+                                    <th>Tipo</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="area-reporte">
+                    <h2>Recuento de Tokens</h2>
+                    <div class="table-container">
+                        <table id="conteoLexemas">
+                            <thead>
+                                <tr>
+                                    <th>Lexema</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- Footer-->
+        <footer>
+            <p> 2025 Jefferson Gómez [201830892]- Lenguajes Formales y de Programación</p>
+        </footer>
+    </div>
+<!-- Vinculo que permite conexion con javascript-->
+    <script src="app.js"></script>
+</body>
+</html>
+
